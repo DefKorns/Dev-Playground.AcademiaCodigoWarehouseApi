@@ -20,13 +20,15 @@ namespace AcademiaCodigoWarehouseApi.Controllers.Products {
             int skip = 0, int take = 20
         ) {
             var filterItems = _ctx.Set<ProductEntity>().Select(e => new ProductSearchItemModel{
+                Id = e.Id,
                 Code = e.Code,
                 Name = e.Name,
                 Price = e.Price,
                 CurrentStock = e.StockMovements.Sum(m => m.Quantity),
                 IsActive = e.DeletedOn == null,
                 UpdatedOn = e.UpdatedOn,
-                UpdatedBy = e.UpdatedBy
+                UpdatedBy = e.UpdatedBy,
+                Version = e.Version
             });
 
             if (!string.IsNullOrWhiteSpace (code)) {
